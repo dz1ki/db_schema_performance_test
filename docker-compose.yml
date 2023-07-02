@@ -4,11 +4,11 @@ volumes:
   pg_selectel:
 
 services:
-  pg_db_2:
+  pg_db_scheme_1:
     image: postgres:14.1-alpine
     environment:
       - POSTGRES_PASSWORD=123
       - POSTGRES_USER=Yra
       - POSTGRES_DB=postgres
     ports:
-      - 5432:5432
+      - 5433:5433

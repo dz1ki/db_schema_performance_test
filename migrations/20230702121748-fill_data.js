@@ -3,6 +3,7 @@ const {
   NUMBER_OF_GROUPS,
   NUMBER_OF_USERS_GROUPS,
   NUMBER_OF_MESSAGES,
+  NUMBER_OF_IMAGES,
 } = require("./helper/constants.js");
 const { getRandomIntInclusive } = require("./helper/common.js");
 
@@ -141,7 +142,7 @@ const createMessages = async (queryInterface) => {
 
     const message = {
       sender_id: randomUserId,
-      content: `Message from ${randomUserId}`,
+      text: `Message from ${randomUserId}`,
       created_at: new Date(),
       updated_at: new Date(),
     };
@@ -150,11 +151,6 @@ const createMessages = async (queryInterface) => {
       message.receiver_id = getRandomIntInclusive(minUserId, maxUserId);
     } else {
       message.group_id = getRandomIntInclusive(minGroupId, maxGroupId);
-    }
-
-    if (randomUrl === 1) {
-      message.picture_url =
-        "https://lucid.app/lucidchart/f6a1bb32-9585-4d50-8ced-6b4666847972/edit?beaconFlowId=6A04FC88B71845A4&invitationId=inv_056845fc-6032-4017-b36f-7d156c8c0fd2&page=0_0#?referredproduct=";
     }
 
     try {
@@ -172,18 +168,58 @@ const deleteMessages = async (queryInterface) => {
   await queryInterface.sequelize.query("DELETE FROM messages");
 };
 
+const createImages = async (queryInterface) => {
+  const messageResult = await queryInterface.sequelize.query(
+    "SELECT * FROM messages LIMIT 1"
+  );
+  const message = messageResult[0];
+
+  const minMessageId = message[0].id;
+  const maxMessageId = minMessageId + NUMBER_OF_MESSAGES - 1;
+
+  const max = NUMBER_OF_IMAGES;
+  let counter = 0;
+
+  while (counter < max) {
+    const randomMessageId = getRandomIntInclusive(minMessageId, maxMessageId);
+
+    const image = {
+      message_id: randomMessageId,
+      name: `Message from ${randomMessageId}`,
+      url: "https://lucid.app/lucidchart/f6a1bb32-9585-4d50-8ced-6b4666847972/edit?beaconFlowId=6A04FC88B71845A4&invitationId=inv_056845fc-6032-4017-b36f-7d156c8c0fd2&page=0_0#?referredproduct=",
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+
+    try {
+      await queryInterface.insert(null, "images", image);
+    } catch (e) {
+      console.log("🚀 ~ createGroupMessages ~ e:", e);
+      continue;
+    }
+
+    counter++;
+  }
+};
+
+const deleteImages = async (queryInterface) => {
+  await queryInterface.sequelize.query("DELETE FROM images");
+};
+
 module.exports = {
   async up(queryInterface) {
-    // await createUser(queryInterface);
-    // await createGroups(queryInterface);
-    // await createUsersGroups(queryInterface);
-    // await createMessages(queryInterface);
+    await createUser(queryInterface);
+    await createGroups(queryInterface);
+    await createUsersGroups(queryInterface);
+    await createMessages(queryInterface);
+    await createImages(queryInterface);
   },
 
   async down(queryInterface) {
-    // await deleteUsers(queryInterface);
-    // await deleteGroups(queryInterface);
-    // await deleteUsersGroups(queryInterface);
-    // await deleteMessages(queryInterface);
+    await deleteUsers(queryInterface);
+    await deleteGroups(queryInterface);
+    await deleteUsersGroups(queryInterface);
+    await deleteMessages(queryInterface);
+    await deleteImages(queryInterface);
   },
 };

@@ -1,6 +1,6 @@
 {
   "development": {
-    "database": "postgres",
+    "database": "scheme_2",
     "username": "Yra",
     "dialect": "postgres",
     "host": "localhost",

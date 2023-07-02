@@ -5,13 +5,16 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from "sequelize-typescript";
 import { User } from "./user";
 import { Group } from "./group";
+import { Image } from "./image";
 
 @Table({
   tableName: "messages",
   timestamps: true,
+  underscored: true,
 })
 export class Message extends Model {
   @Column({
@@ -59,4 +62,7 @@ export class Message extends Model {
     allowNull: false,
   })
   text: string;
+
+  @HasMany(() => Image)
+  images: Image[];
 }

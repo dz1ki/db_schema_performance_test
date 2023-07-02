@@ -1,4 +1,7 @@
+import { Op, QueryTypes, Sequelize } from "sequelize";
 import connection from "./models";
+import { Message } from "./models/message";
+import { Image } from "./models/image";
 
 export const getLatestAllMessage = async (userId, limit) => {
   return await connection.query(
@@ -19,13 +22,16 @@ export const getLatestAllMessage = async (userId, limit) => {
 
 export const getAllMessage = async (userId) => {
   return await connection.query(
-    `SELECT sender_id, receiver_id, group_id, content, created_at
+    `SELECT sender_id, receiver_id, group_id, text, images.name, images.url, messages.created_at
       FROM messages
+      INNER JOIN images
+      ON messages.id = images.message_id
       WHERE (sender_id = ${userId} OR receiver_id = ${userId} OR group_id IN (
           SELECT group_id
           FROM users_groups
           WHERE user_id = ${userId}
       ))
+      ORDER BY created_at DESC
   `,
     { raw: true, nest: true }
   );
@@ -35,8 +41,10 @@ export const getlatestMessageOneDialog = async (randomMessage, limit) => {
   const { receiver_id, sender_id, group_id } = randomMessage;
   if (receiver_id !== null) {
     return await connection.query(
-      `SELECT sender_id, receiver_id, created_at , content, picture_url
+      `SELECT sender_id, receiver_id, messages.created_at , text, images.name, images.url
       FROM messages
+      INNER JOIN images
+      ON messages.id = images.message_id
       WHERE sender_id = ${sender_id} AND receiver_id = ${receiver_id}
            OR sender_id = ${receiver_id} AND receiver_id = ${sender_id}  
       LIMIT ${limit} 
@@ -45,8 +53,10 @@ export const getlatestMessageOneDialog = async (randomMessage, limit) => {
     );
   } else {
     return await connection.query(
-      `SELECT sender_id, group_id, created_at , content, picture_url 
+      `SELECT sender_id, group_id, messages.created_at , text, images.name, images.url
       FROM messages
+      INNER JOIN images
+      ON messages.id = images.message_id
       WHERE group_id = ${group_id}
       LIMIT ${limit}   
   `,

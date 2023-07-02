@@ -187,7 +187,7 @@ const createImages = async (queryInterface) => {
 
     const image = {
       message_id: randomMessageId,
-      name: `Message from ${randomMessageId}`,
+      name: `Immage from ${randomMessageId}`,
       url: "https://lucid.app/lucidchart/f6a1bb32-9585-4d50-8ced-6b4666847972/edit?beaconFlowId=6A04FC88B71845A4&invitationId=inv_056845fc-6032-4017-b36f-7d156c8c0fd2&page=0_0#?referredproduct=",
       created_at: new Date(),
       updated_at: new Date(),

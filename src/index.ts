@@ -18,12 +18,9 @@ const start = async () => {
       randomMessage,
       limit
     );
-    console.log("🚀 ~ start ~ allMessage:", allMessage.length);
-    console.log("🚀 ~ start ~ latestAllMessage:", latestAllMessage.length);
-    console.log(
-      "🚀 ~ start ~ latestMessageOneDialog:",
-      latestMessageOneDialog.length
-    );
+    // console.log("🚀 ~ start ~ allMessage:", allMessage);
+    // console.log("🚀 ~ start ~ latestAllMessage:", latestAllMessage);
+    console.log("🚀 ~ start ~ latestMessageOneDialog:", latestMessageOneDialog);
   } catch (e) {
     console.log(e);
   }

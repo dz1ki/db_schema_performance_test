@@ -5,15 +5,18 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from "sequelize-typescript";
 import { User } from "./user";
 import { Group } from "./group";
+import { Message } from "./message";
 
 @Table({
   tableName: "images",
   timestamps: true,
+  underscored: true,
 })
-export class Message extends Model {
+export class Image extends Model {
   @Column({
     type: DataType.INTEGER(),
     primaryKey: true,

@@ -1,7 +1,7 @@
 const NUMBER_OF_USERS = 5;
 const NUMBER_OF_GROUPS = 10;
 const NUMBER_OF_USERS_GROUPS = 5;
-const NUMBER_OF_MESSAGES = 100;
+const NUMBER_OF_MESSAGES = 10;
 
 module.exports = {
   NUMBER_OF_GROUPS,

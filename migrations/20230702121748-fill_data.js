@@ -174,16 +174,16 @@ const deleteMessages = async (queryInterface) => {
 
 module.exports = {
   async up(queryInterface) {
-    await createUser(queryInterface);
-    await createGroups(queryInterface);
-    await createUsersGroups(queryInterface);
-    await createMessages(queryInterface);
+    // await createUser(queryInterface);
+    // await createGroups(queryInterface);
+    // await createUsersGroups(queryInterface);
+    // await createMessages(queryInterface);
   },
 
   async down(queryInterface) {
-    await deleteUsers(queryInterface);
-    await deleteGroups(queryInterface);
-    await deleteUsersGroups(queryInterface);
-    await deleteMessages(queryInterface);
+    // await deleteUsers(queryInterface);
+    // await deleteGroups(queryInterface);
+    // await deleteUsersGroups(queryInterface);
+    // await deleteMessages(queryInterface);
   },
 };

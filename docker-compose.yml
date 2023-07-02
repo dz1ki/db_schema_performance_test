@@ -1,10 +1,10 @@
 version: "3.1"
-
+name: scheme_2
 volumes:
   pg_selectel:
 
 services:
-  pg_db_scheme_2:
+  pg_db:
     image: postgres:14.1-alpine
     environment:
       - POSTGRES_PASSWORD=123

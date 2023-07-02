@@ -10,7 +10,7 @@ import { User } from "./user";
 import { Group } from "./group";
 
 @Table({
-  tableName: "messages",
+  tableName: "images",
   timestamps: true,
 })
 export class Message extends Model {
@@ -21,42 +21,26 @@ export class Message extends Model {
   })
   id: number;
 
-  @ForeignKey(() => User)
+  @ForeignKey(() => Message)
   @Column({
     type: DataType.INTEGER(),
     allowNull: false,
-    field: "sender_id",
+    field: "message_id",
   })
-  senderId: number;
+  messageId: number;
 
-  @BelongsTo(() => User)
-  sender: User;
-
-  @ForeignKey(() => User)
-  @Column({
-    type: DataType.INTEGER(),
-    allowNull: false,
-    field: "receiver_id",
-  })
-  receiverId: number;
-
-  @BelongsTo(() => User)
-  receiver: User;
-
-  @ForeignKey(() => Group)
-  @Column({
-    type: DataType.INTEGER(),
-    allowNull: false,
-    field: "group_id",
-  })
-  groupId: number;
-
-  @BelongsTo(() => Group)
-  group: Group;
+  @BelongsTo(() => Message)
+  messages: Message;
 
   @Column({
     type: DataType.STRING(),
     allowNull: false,
   })
-  text: string;
+  name: string;
+
+  @Column({
+    type: DataType.STRING(),
+    allowNull: false,
+  })
+  url: string;
 }

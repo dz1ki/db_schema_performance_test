@@ -26,6 +26,7 @@ export const getAllMessage = async (userId) => {
           FROM users_groups
           WHERE user_id = ${userId}
       ))
+      ORDER BY created_at DESC
   `,
     { raw: true, nest: true }
   );
@@ -38,7 +39,8 @@ export const getlatestMessageOneDialog = async (randomMessage, limit) => {
       `SELECT sender_id, receiver_id, created_at , content, picture_url
       FROM messages
       WHERE sender_id = ${sender_id} AND receiver_id = ${receiver_id}
-           OR sender_id = ${receiver_id} AND receiver_id = ${sender_id}  
+           OR sender_id = ${receiver_id} AND receiver_id = ${sender_id} 
+      ORDER BY created_at DESC 
       LIMIT ${limit} 
   `,
       { raw: true, nest: true }
@@ -48,6 +50,7 @@ export const getlatestMessageOneDialog = async (randomMessage, limit) => {
       `SELECT sender_id, group_id, created_at , content, picture_url 
       FROM messages
       WHERE group_id = ${group_id}
+      ORDER BY created_at DESC
       LIMIT ${limit}   
   `,
       { raw: true, nest: true }

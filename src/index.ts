@@ -8,7 +8,7 @@ import {
 
 const start = async () => {
   const userId = 3;
-  const limit = 10;
+  const limit = 5;
   try {
     await sequelize.authenticate();
     const allMessage = await getAllMessage(userId);

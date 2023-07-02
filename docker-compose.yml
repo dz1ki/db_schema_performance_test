@@ -4,7 +4,7 @@ volumes:
   pg_selectel:
 
 services:
-  pg_db:
+  pg_db_2:
     image: postgres:14.1-alpine
     environment:
       - POSTGRES_PASSWORD=123

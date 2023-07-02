@@ -149,7 +149,18 @@ const createMessages = async (queryInterface) => {
     if (createPrivate) {
       message.receiver_id = getRandomIntInclusive(minUserId, maxUserId);
     } else {
-      message.group_id = getRandomIntInclusive(minGroupId, maxGroupId);
+      const userGroup = await queryInterface.sequelize.query(
+        `SELECT group_id 
+         FROM users_groups 
+         WHERE user_id = ${randomUserId}`,
+        { raw: true, nest: true }
+      );
+      if (userGroup.length === 0) {
+        message.receiver_id = getRandomIntInclusive(minUserId, maxUserId);
+      } else {
+        const rand = Math.floor(Math.random() * userGroup.length);
+        message.group_id = userGroup[rand].group_id;
+      }
     }
 
     if (randomUrl === 1) {

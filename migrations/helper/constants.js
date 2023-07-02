@@ -1,6 +1,6 @@
-const NUMBER_OF_USERS = 50;
-const NUMBER_OF_GROUPS = 100;
-const NUMBER_OF_USERS_GROUPS = 100;
+const NUMBER_OF_USERS = 5;
+const NUMBER_OF_GROUPS = 10;
+const NUMBER_OF_USERS_GROUPS = 5;
 const NUMBER_OF_MESSAGES = 100;
 
 module.exports = {

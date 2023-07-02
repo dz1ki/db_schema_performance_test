@@ -3,7 +3,7 @@ import { getInitDataBySql } from "./service";
 
 const start = async () => {
   const userId = 1;
-  const limit = 10;
+  const limit = 5;
   try {
     await sequelize.authenticate();
     const result = await getInitDataBySql(userId, limit);

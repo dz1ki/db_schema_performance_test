@@ -123,20 +123,11 @@ const createMessages = async (queryInterface) => {
   const minUserId = users[0].id;
   const maxUserId = minUserId + NUMBER_OF_USERS - 1;
 
-  const groupsResult = await queryInterface.sequelize.query(
-    "SELECT * FROM groups LIMIT 1"
-  );
-  const groups = groupsResult[0];
-
-  const minGroupId = groups[0].id;
-  const maxGroupId = minGroupId + NUMBER_OF_GROUPS - 1;
-
   const max = NUMBER_OF_MESSAGES;
   let counter = 0;
 
   while (counter < max) {
     const random = getRandomIntInclusive(1, 2);
-    const randomUrl = getRandomIntInclusive(1, 2);
     const createPrivate = random === 1 ? true : false;
     const randomUserId = getRandomIntInclusive(minUserId, maxUserId);
 
@@ -150,7 +141,18 @@ const createMessages = async (queryInterface) => {
     if (createPrivate) {
       message.receiver_id = getRandomIntInclusive(minUserId, maxUserId);
     } else {
-      message.group_id = getRandomIntInclusive(minGroupId, maxGroupId);
+      const userGroup = await queryInterface.sequelize.query(
+        `SELECT group_id 
+         FROM users_groups 
+         WHERE user_id = ${randomUserId}`,
+        { raw: true, nest: true }
+      );
+      if (userGroup.length === 0) {
+        message.receiver_id = getRandomIntInclusive(minUserId, maxUserId);
+      } else {
+        const rand = Math.floor(Math.random() * userGroup.length);
+        message.group_id = userGroup[rand].group_id;
+      }
     }
 
     try {

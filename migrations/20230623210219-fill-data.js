@@ -122,14 +122,6 @@ const createMessages = async (queryInterface) => {
   const minUserId = users[0].id;
   const maxUserId = minUserId + NUMBER_OF_USERS - 1;
 
-  const groupsResult = await queryInterface.sequelize.query(
-    "SELECT * FROM groups LIMIT 1"
-  );
-  const groups = groupsResult[0];
-
-  const minGroupId = groups[0].id;
-  const maxGroupId = minGroupId + NUMBER_OF_GROUPS - 1;
-
   const max = NUMBER_OF_MESSAGES;
   let counter = 0;
 

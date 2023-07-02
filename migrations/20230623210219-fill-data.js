@@ -2,10 +2,9 @@ const {
   NUMBER_OF_USERS,
   NUMBER_OF_GROUPS,
   NUMBER_OF_USERS_GROUPS,
-  NUMBER_OF_GROUP_MESSAGES,
-  NUMBER_OF_PRIVATE_MESSAGES,
-} = require("../constants.js");
-const { getRandomIntInclusive } = require("../helper.js");
+  NUMBER_OF_MESSAGES,
+} = require("./helper/constants.js");
+const { getRandomIntInclusive } = require("./helper/common.js");
 
 const createUser = async (queryInterface) => {
   const userObject = {
@@ -114,7 +113,7 @@ const deleteUsersGroups = async (queryInterface) => {
   await queryInterface.sequelize.query("DELETE FROM users_groups");
 };
 
-const createGroupMessages = async (queryInterface) => {
+const createMessages = async (queryInterface) => {
   const usersResult = await queryInterface.sequelize.query(
     "SELECT * FROM users LIMIT 1"
   );
@@ -131,7 +130,7 @@ const createGroupMessages = async (queryInterface) => {
   const minGroupId = groups[0].id;
   const maxGroupId = minGroupId + NUMBER_OF_GROUPS - 1;
 
-  const max = NUMBER_OF_GROUP_MESSAGES;
+  const max = NUMBER_OF_MESSAGES;
   let counter = 0;
 
   while (counter < max) {
@@ -169,55 +168,22 @@ const createGroupMessages = async (queryInterface) => {
   }
 };
 
-// const createPrivateMessages = async (queryInterface) => {
-//   const usersResult = await queryInterface.sequelize.query(
-//     "SELECT * FROM users"
-//   );
-//   const users = usersResult[0];
-
-//   const minUserId = users[0].id;
-//   const maxUserId = minUserId + NUMBER_OF_USERS - 1;
-
-//   const max = NUMBER_OF_PRIVATE_MESSAGES;
-//   let counter = 0;
-
-//   while (counter < max) {
-//     const randomSenderId = getRandomIntInclusive(minUserId, maxUserId);
-//     const randomReceiverId = getRandomIntInclusive(minUserId, maxUserId);
-
-//     try {
-//       await queryInterface.insert(null, "messages", {
-//         sender_id: randomSenderId,
-//         receiver_id: randomReceiverId,
-//         content: `Message from ${randomSenderId}`,
-//         created_at: new Date(),
-//         updated_at: new Date(),
-//       });
-//     } catch (e) {
-//       console.log("🚀 ~ createPrivateMessages ~ e:", e);
-//       continue;
-//     }
-
-//     counter++;
-//   }
-// };
-
 const deleteMessages = async (queryInterface) => {
   await queryInterface.sequelize.query("DELETE FROM messages");
 };
 
 module.exports = {
   async up(queryInterface) {
-    // await createUser(queryInterface);
-    // await createGroups(queryInterface);
-    // await createUsersGroups(queryInterface);
-    // await createGroupMessages(queryInterface);
+    await createUser(queryInterface);
+    await createGroups(queryInterface);
+    await createUsersGroups(queryInterface);
+    await createMessages(queryInterface);
   },
 
   async down(queryInterface) {
-    // await deleteUsers(queryInterface);
-    // await deleteGroups(queryInterface);
-    // await deleteUsersGroups(queryInterface);
-    // await deleteMessages(queryInterface);
+    await deleteUsers(queryInterface);
+    await deleteGroups(queryInterface);
+    await deleteUsersGroups(queryInterface);
+    await deleteMessages(queryInterface);
   },
 };

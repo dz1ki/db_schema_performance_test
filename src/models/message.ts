@@ -2,18 +2,15 @@ import {
   Table,
   Column,
   Model,
-  CreatedAt,
   DataType,
   ForeignKey,
   BelongsTo,
-  UpdatedAt,
 } from "sequelize-typescript";
 import { User } from "./user";
 import { Group } from "./group";
 
 @Table({
   tableName: "messages",
-  underscored: true,
   timestamps: true,
 })
 export class Message extends Model {

@@ -1,7 +1,5 @@
 ## Description
 
-User CRUD and authorization by JWT token.
-
 ## Running the app
 
 ```bash

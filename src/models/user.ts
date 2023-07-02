@@ -1,15 +1,8 @@
-import {
-  Table,
-  Column,
-  Model,
-  CreatedAt,
-  UpdatedAt,
-  DataType,
-  HasMany,
-} from "sequelize-typescript";
+import { Table, Column, Model, DataType } from "sequelize-typescript";
 
 @Table({
   tableName: "users",
+  timestamps: true,
 })
 export class User extends Model {
   @Column({
@@ -43,12 +36,4 @@ export class User extends Model {
     allowNull: true,
   })
   email: string;
-
-  @CreatedAt
-  @Column({ field: "created_at" })
-  createdAt: Date;
-
-  @UpdatedAt
-  @Column({ field: "updated_at" })
-  updatedAt: Date;
 }

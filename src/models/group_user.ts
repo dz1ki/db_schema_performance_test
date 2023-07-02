@@ -11,7 +11,6 @@ import { User } from "./user";
 @Table({
   tableName: "users_groups",
   timestamps: false,
-  underscored: true,
 })
 export class UserGroup extends Model {
   @Column({

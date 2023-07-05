@@ -2,7 +2,7 @@ import connection from "./models";
 
 export const getLatestAllMessage = async (userId, limit) => {
   return await connection.query(
-    `SELECT sender_id, receiver_id, group_id, created_at
+    `EXPLAIN ANALYZE SELECT sender_id, receiver_id, group_id, created_at
       FROM messages
       WHERE (sender_id = ${userId} OR receiver_id = ${userId} OR group_id IN (
           SELECT group_id

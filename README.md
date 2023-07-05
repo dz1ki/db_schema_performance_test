@@ -1,28 +1,9 @@
 ## Description
 
-## Running the app
+Here I am testing the database schema for online chat. "scheme_2"
 
-```bash
-
-# In the console, run the database image with the command:
-$ docker-compose up
-
-# Create tables in the database using the "migrations" command:
-$ npm run migrate:start
-
-# Running the project in development mode:
-$ npm run dev
-
-# To compile the project to JavaScript:
-$ npm run build
-
-# To start a project:
-$ npm run start
-
-```
-
-## Test
-
-Documentation (Swagger UI) is available at: [link] http://localhost:3000/api/
-
+## Scheme
+![Image alt](https://github.com/dz1ki/db_schema_performance_test/blob/scheme_2/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%20%D0%BE%D1%82%202023-07-05%2014-45-27-1.png)
+##
+database: postgreSQL   
 node v16.14.2

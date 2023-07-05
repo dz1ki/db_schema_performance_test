@@ -7,4 +7,3 @@ Each branch has different table schemas and their short description.
 ##
 
 database: postgreSQL  
-node v16.14.2
